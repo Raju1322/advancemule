@@ -25,12 +25,35 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.0.0</version>
-			</plugin>
+				<configuration></configuration>
+				</plugin>
+			
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				
+		    <plugin>
+        	         <groupId>org.sonatype.plugin</groupId>
+			         <artifactId>nexus-staging-maven-plugin</artifactId>
+			         <version>1.6.6</version>
+			    <extensions>true</extensions>
+			  <configuration>
+			          <serverId>nexus</serverId>
+			           <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+			           <skipStaging>true</skipStaging>
+			   </configuration>
+			   <excecutions>
+			       <execution>
+			           <id>default-deploy</id>
+			           <phase>deploy</phase>
+			    <goals>
+			        <goal>deploy</goal>
+			    </goals>
+			    </execution>
+			    </excecutions>
+			 </plugin>
 				<configuration>
 				  <cloudHubDeployment>
 				         <uri>https://anypoint.mulesoft.com</uri>
@@ -96,5 +119,12 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<distributionManagement>
+	<snapshotRepository>
+	<id>mulerelease</id>
+	<name>mulerelease</name>
+	<url>http://localhost:8081/repository/mulerepo1/</url>
+	</snapshotRepository>
+	</distributionManagement>
 
 </project>
